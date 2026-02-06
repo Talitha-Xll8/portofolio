@@ -1,0 +1,1074 @@
+<!doctype html>
+<html lang="id">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kekayaan Alam Papua - Surga Tersembunyi Indonesia</title>
+  <meta name="description" content="Jelajahi keindahan alam Papua yang memukau, dari Raja Ampat hingga pegunungan Jayawijaya. Destinasi wisata terbaik di timur Indonesia.">
+  <script src="/_sdk/element_sdk.js"></script>
+  <script src="/_sdk/data_sdk.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+        body {
+            box-sizing: border-box;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: 100%;
+            width: 100%;
+            overflow-x: hidden;
+        }
+
+        .app-wrapper {
+            width: 100%;
+            min-height: 100%;
+        }
+
+        :root {
+            --bg-primary: #0f172a;
+            --bg-secondary: #1e293b;
+            --text-primary: #f1f5f9;
+            --accent-primary: #10b981;
+            --accent-secondary: #06b6d4;
+        }
+
+        [data-theme="light"] {
+            --bg-primary: #f8fafc;
+            --bg-secondary: #ffffff;
+            --text-primary: #1e293b;
+            --accent-primary: #059669;
+            --accent-secondary: #0891b2;
+        }
+
+        body {
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            transition: background 0.3s, color 0.3s;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .navbar {
+            background: var(--bg-secondary);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .hero-section {
+            background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%);
+            min-height: 80%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-pattern {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.1;
+            background-image: radial-gradient(circle, #fff 1px, transparent 1px);
+            background-size: 30px 30px;
+        }
+
+        .destination-card {
+            background: var(--bg-secondary);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .destination-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2);
+        }
+
+        .stat-counter {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--accent-primary);
+        }
+
+        .testimonial-carousel {
+            display: flex;
+            gap: 1.5rem;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            scrollbar-width: none;
+        }
+
+        .testimonial-carousel::-webkit-scrollbar {
+            display: none;
+        }
+
+        .testimonial-card {
+            min-width: 300px;
+            scroll-snap-align: start;
+            background: var(--bg-secondary);
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .chatbot {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 1000;
+        }
+
+        .chatbot-button {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--accent-primary);
+            color: white;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .chatbot-button:hover {
+            transform: scale(1.1);
+        }
+
+        .chatbot-window {
+            position: absolute;
+            bottom: 80px;
+            right: 0;
+            width: 320px;
+            height: 400px;
+            background: var(--bg-secondary);
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            display: none;
+            flex-direction: column;
+        }
+
+        .chatbot-window.active {
+            display: flex;
+        }
+
+        .search-bar {
+            background: var(--bg-secondary);
+            border-radius: 50px;
+            padding: 0.75rem 1.5rem;
+            border: 2px solid transparent;
+            transition: border-color 0.3s;
+        }
+
+        .search-bar:focus {
+            outline: none;
+            border-color: var(--accent-primary);
+        }
+
+        .filter-button {
+            padding: 0.5rem 1.25rem;
+            border-radius: 25px;
+            background: var(--bg-secondary);
+            border: 2px solid var(--accent-primary);
+            color: var(--text-primary);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .filter-button.active {
+            background: var(--accent-primary);
+            color: white;
+        }
+
+        .scroll-animate {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s, transform 0.6s;
+        }
+
+        .scroll-animate.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .sidebar {
+            background: var(--bg-secondary);
+            padding: 1.5rem;
+            border-radius: 12px;
+            position: sticky;
+            top: 100px;
+        }
+
+        .rating-stars {
+            color: #fbbf24;
+        }
+
+        .weather-widget {
+            background: linear-gradient(135deg, var(--accent-secondary), var(--accent-primary));
+            padding: 1.5rem;
+            border-radius: 12px;
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            .hero-section {
+                min-height: 60%;
+            }
+            
+            .destination-card {
+                margin-bottom: 1rem;
+            }
+
+            .chatbot {
+                bottom: 1rem;
+                right: 1rem;
+            }
+
+            .sidebar {
+                position: static;
+                margin-top: 2rem;
+            }
+        }
+
+        .loading-spinner {
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-top: 3px solid var(--accent-primary);
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            animation: spin 1s linear infinite;
+            display: inline-block;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--bg-secondary);
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            z-index: 2000;
+            display: none;
+        }
+
+        .toast.show {
+            display: block;
+            animation: slideUp 0.3s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateX(-50%) translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(-50%) translateY(0);
+            }
+        }
+    </style>
+  <style>@view-transition { navigation: auto; }</style>
+ </head>
+ <body>
+  <div class="app-wrapper"><!-- Navbar -->
+   <nav class="navbar fixed w-full top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 py-4">
+     <div class="flex items-center justify-between">
+      <div class="flex items-center space-x-2"><span class="text-2xl">🏝️</span> <span class="text-xl font-bold" id="site-title">Kekayaan Alam Papua</span>
+      </div>
+      <div class="hidden md:flex items-center space-x-6"><a href="#home" class="nav-link hover:text-green-500 transition">Beranda</a> <a href="#destinations" class="nav-link hover:text-green-500 transition">Destinasi</a> <a href="#gallery" class="nav-link hover:text-green-500 transition">Galeri</a> <a href="#testimonials" class="nav-link hover:text-green-500 transition">Testimoni</a> <a href="#contact" class="nav-link hover:text-green-500 transition">Kontak</a> <button id="lang-toggle" class="px-3 py-1 rounded-lg border border-current hover:bg-green-500 hover:border-green-500 transition"> <span id="current-lang">ID</span> </button> <button id="theme-toggle" class="text-2xl hover:scale-110 transition"> <i class="fas fa-moon" id="theme-icon"></i> </button>
+      </div><button id="mobile-menu-btn" class="md:hidden text-2xl"> <i class="fas fa-bars"></i> </button>
+     </div><!-- Mobile Menu -->
+     <div id="mobile-menu" class="hidden md:hidden mt-4 space-y-3"><a href="#home" class="block hover:text-green-500 transition">Beranda</a> <a href="#destinations" class="block hover:text-green-500 transition">Destinasi</a> <a href="#gallery" class="block hover:text-green-500 transition">Galeri</a> <a href="#testimonials" class="block hover:text-green-500 transition">Testimoni</a> <a href="#contact" class="block hover:text-green-500 transition">Kontak</a>
+     </div>
+    </div>
+   </nav><!-- Hero Section -->
+   <section id="home" class="hero-section flex items-center justify-center relative" style="margin-top: 80px;">
+    <div class="hero-pattern"></div>
+    <div class="max-w-4xl mx-auto px-4 text-center z-10 py-20">
+     <h1 class="text-5xl md:text-6xl font-bold text-white mb-4" id="hero-title">Jelajahi Keindahan Papua</h1>
+     <p class="text-xl md:text-2xl text-white mb-8 opacity-90" id="hero-subtitle">Surga Tersembunyi di Timur Indonesia</p>
+     <div class="flex flex-col md:flex-row gap-4 justify-center items-center mb-8"><input type="text" id="search-input" placeholder="Cari destinasi..." class="search-bar w-full md:w-96"> <button class="px-6 py-3 bg-white text-green-600 rounded-full font-semibold hover:bg-opacity-90 transition"> Mulai Petualangan </button>
+     </div><!-- Stats Counter -->
+     <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mt-12 text-white">
+      <div class="scroll-animate">
+       <div class="stat-counter" data-target="150">
+        0
+       </div>
+       <div class="text-sm opacity-80">
+        Destinasi
+       </div>
+      </div>
+      <div class="scroll-animate">
+       <div class="stat-counter" data-target="50000">
+        0
+       </div>
+       <div class="text-sm opacity-80">
+        Pengunjung
+       </div>
+      </div>
+      <div class="scroll-animate">
+       <div class="stat-counter" data-target="25">
+        0
+       </div>
+       <div class="text-sm opacity-80">
+        Pulau
+       </div>
+      </div>
+      <div class="scroll-animate">
+       <div class="stat-counter" data-target="98">
+        0
+       </div>
+       <div class="text-sm opacity-80">
+        Rating
+       </div>
+      </div>
+     </div>
+    </div>
+   </section><!-- Main Content -->
+   <div class="max-w-7xl mx-auto px-4 py-12">
+    <div class="grid grid-cols-1 lg:grid-cols-4 gap-8"><!-- Sidebar -->
+     <aside class="lg:col-span-1">
+      <div class="sidebar space-y-6">
+       <div class="weather-widget">
+        <h3 class="text-lg font-bold mb-2">Cuaca Hari Ini</h3>
+        <div class="flex items-center justify-between">
+         <div>
+          <div class="text-3xl">
+           ☀️
+          </div>
+          <div class="text-2xl font-bold">
+           28°C
+          </div>
+         </div>
+         <div class="text-right text-sm">
+          <div>
+           Cerah
+          </div>
+          <div>
+           Kelembaban: 75%
+          </div>
+         </div>
+        </div>
+       </div>
+       <div>
+        <h3 class="text-lg font-bold mb-3">Filter Kategori</h3>
+        <div class="space-y-2"><button class="filter-button w-full text-left active" data-category="all"> Semua </button> <button class="filter-button w-full text-left" data-category="pantai"> 🏖️ Pantai </button> <button class="filter-button w-full text-left" data-category="gunung"> ⛰️ Gunung </button> <button class="filter-button w-full text-left" data-category="budaya"> 🎭 Budaya </button> <button class="filter-button w-full text-left" data-category="diving"> 🤿 Diving </button>
+        </div>
+       </div>
+       <div>
+        <h3 class="text-lg font-bold mb-3">Destinasi Populer</h3>
+        <ul class="space-y-2 text-sm">
+         <li class="flex items-center space-x-2"><span>⭐</span> <span>Raja Ampat</span></li>
+         <li class="flex items-center space-x-2"><span>⭐</span> <span>Danau Sentani</span></li>
+         <li class="flex items-center space-x-2"><span>⭐</span> <span>Lembah Baliem</span></li>
+         <li class="flex items-center space-x-2"><span>⭐</span> <span>Pulau Biak</span></li>
+        </ul>
+       </div>
+      </div>
+     </aside><!-- Main Content Area -->
+     <main class="lg:col-span-3"><!-- About Section -->
+      <section id="about" class="mb-16 scroll-animate">
+       <h2 class="text-3xl font-bold mb-6" id="about-title">Tentang Papua</h2>
+       <p class="text-lg leading-relaxed mb-4">Papua adalah provinsi terluas di Indonesia yang memiliki kekayaan alam luar biasa. Dari terumbu karang spektakuler di Raja Ampat hingga pegunungan tertinggi di Indonesia, Papua menawarkan pengalaman wisata yang tak terlupakan.</p>
+       <p class="text-lg leading-relaxed">Dengan keanekaragaman hayati yang menakjubkan dan budaya yang kaya, Papua adalah destinasi impian bagi pecinta alam dan petualangan.</p>
+      </section><!-- Destinations -->
+      <section id="destinations" class="mb-16">
+       <div class="flex items-center justify-between mb-6">
+        <h2 class="text-3xl font-bold">Destinasi Utama</h2><button id="view-all-destinations" class="text-green-500 hover:underline"> Lihat Semua → </button>
+       </div>
+       <div id="destinations-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6"><!-- Destination cards will be rendered here -->
+       </div>
+      </section><!-- Gallery Section -->
+      <section id="gallery" class="mb-16 scroll-animate">
+       <h2 class="text-3xl font-bold mb-6">Galeri Foto</h2>
+       <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+        <div class="destination-card h-48 bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center text-white text-2xl">
+         🏝️
+        </div>
+        <div class="destination-card h-48 bg-gradient-to-br from-green-500 to-emerald-500 flex items-center justify-center text-white text-2xl">
+         🌴
+        </div>
+        <div class="destination-card h-48 bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center text-white text-2xl">
+         🐠
+        </div>
+        <div class="destination-card h-48 bg-gradient-to-br from-orange-500 to-red-500 flex items-center justify-center text-white text-2xl">
+         ⛰️
+        </div>
+        <div class="destination-card h-48 bg-gradient-to-br from-yellow-500 to-amber-500 flex items-center justify-center text-white text-2xl">
+         🌺
+        </div>
+        <div class="destination-card h-48 bg-gradient-to-br from-teal-500 to-cyan-500 flex items-center justify-center text-white text-2xl">
+         🦜
+        </div>
+       </div>
+      </section><!-- Events Section -->
+      <section id="events" class="mb-16 scroll-animate">
+       <h2 class="text-3xl font-bold mb-6">Event &amp; Kegiatan</h2>
+       <div class="space-y-4">
+        <div class="destination-card p-6 flex items-start space-x-4">
+         <div class="text-3xl">
+          📅
+         </div>
+         <div class="flex-1">
+          <h3 class="text-xl font-bold mb-2">Festival Danau Sentani</h3>
+          <p class="mb-2">Festival budaya tahunan dengan tarian tradisional dan pameran kerajinan lokal.</p><span class="text-sm text-green-500">Juni 2024</span>
+         </div>
+        </div>
+        <div class="destination-card p-6 flex items-start space-x-4">
+         <div class="text-3xl">
+          🎭
+         </div>
+         <div class="flex-1">
+          <h3 class="text-xl font-bold mb-2">Pesta Lembah Baliem</h3>
+          <p class="mb-2">Perayaan budaya suku Dani dengan ritual perang tradisional.</p><span class="text-sm text-green-500">Agustus 2024</span>
+         </div>
+        </div>
+       </div>
+      </section><!-- Testimonials -->
+      <section id="testimonials" class="mb-16 scroll-animate">
+       <h2 class="text-3xl font-bold mb-6">Testimoni Pengunjung</h2>
+       <div id="testimonial-carousel" class="testimonial-carousel"></div>
+       <div class="mt-8"><button id="add-testimonial-btn" class="px-6 py-3 bg-green-500 text-white rounded-lg hover:bg-green-600 transition"> Tambah Testimoni </button>
+       </div>
+      </section><!-- Contact Form -->
+      <section id="contact" class="scroll-animate">
+       <h2 class="text-3xl font-bold mb-6" id="contact-title">Hubungi Kami</h2>
+       <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div class="destination-card p-6">
+         <form id="contact-form" class="space-y-4">
+          <div><label for="contact-name" class="block mb-2 font-semibold">Nama</label> <input type="text" id="contact-name" required class="w-full px-4 py-2 rounded-lg bg-transparent border-2 border-current">
+          </div>
+          <div><label for="contact-email" class="block mb-2 font-semibold">Email</label> <input type="email" id="contact-email" required class="w-full px-4 py-2 rounded-lg bg-transparent border-2 border-current">
+          </div>
+          <div><label for="contact-message" class="block mb-2 font-semibold">Pesan</label> <textarea id="contact-message" required rows="4" class="w-full px-4 py-2 rounded-lg bg-transparent border-2 border-current"></textarea>
+          </div><button type="submit" id="contact-submit-btn" class="w-full px-6 py-3 bg-green-500 text-white rounded-lg hover:bg-green-600 transition flex items-center justify-center"> <span id="contact-submit-text">Kirim Pesan</span> </button>
+         </form>
+        </div>
+        <div class="destination-card p-6">
+         <h3 class="text-xl font-bold mb-4">Informasi Kontak</h3>
+         <div class="space-y-4">
+          <div class="flex items-start space-x-3"><i class="fas fa-map-marker-alt text-green-500 text-xl"></i>
+           <div>
+            <div class="font-semibold">
+             Alamat
+            </div>
+            <div class="text-sm opacity-80">
+             Jayapura, Papua, Indonesia
+            </div>
+           </div>
+          </div>
+          <div class="flex items-start space-x-3"><i class="fas fa-phone text-green-500 text-xl"></i>
+           <div>
+            <div class="font-semibold">
+             Telepon
+            </div>
+            <div class="text-sm opacity-80">
+             +62 123-456-7890
+            </div>
+           </div>
+          </div>
+          <div class="flex items-start space-x-3"><i class="fas fa-envelope text-green-500 text-xl"></i>
+           <div>
+            <div class="font-semibold">
+             Email
+            </div>
+            <div class="text-sm opacity-80">
+             info@papuaalam.id
+            </div>
+           </div>
+          </div>
+          <div class="mt-6">
+           <div class="font-semibold mb-2">
+            Ikuti Kami
+           </div>
+           <div class="flex space-x-3"><button class="w-10 h-10 rounded-full bg-green-500 text-white hover:bg-green-600 transition flex items-center justify-center"> <i class="fab fa-facebook-f"></i> </button> <button class="w-10 h-10 rounded-full bg-green-500 text-white hover:bg-green-600 transition flex items-center justify-center"> <i class="fab fa-instagram"></i> </button> <button class="w-10 h-10 rounded-full bg-green-500 text-white hover:bg-green-600 transition flex items-center justify-center"> <i class="fab fa-twitter"></i> </button> <button class="w-10 h-10 rounded-full bg-green-500 text-white hover:bg-green-600 transition flex items-center justify-center"> <i class="fab fa-youtube"></i> </button>
+           </div>
+          </div>
+         </div>
+        </div>
+       </div>
+      </section>
+     </main>
+    </div>
+   </div><!-- Footer -->
+   <footer class="navbar mt-16 py-8">
+    <div class="max-w-7xl mx-auto px-4">
+     <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+      <div>
+       <h3 class="text-xl font-bold mb-4">Kekayaan Alam Papua</h3>
+       <p class="text-sm opacity-80">Jelajahi keindahan tersembunyi di timur Indonesia</p>
+      </div>
+      <div>
+       <h4 class="font-bold mb-4">Navigasi</h4>
+       <ul class="space-y-2 text-sm">
+        <li><a href="#home" class="hover:text-green-500 transition">Beranda</a></li>
+        <li><a href="#destinations" class="hover:text-green-500 transition">Destinasi</a></li>
+        <li><a href="#gallery" class="hover:text-green-500 transition">Galeri</a></li>
+        <li><a href="#contact" class="hover:text-green-500 transition">Kontak</a></li>
+       </ul>
+      </div>
+      <div>
+       <h4 class="font-bold mb-4">Layanan</h4>
+       <ul class="space-y-2 text-sm">
+        <li><a href="#" class="hover:text-green-500 transition">Panduan Wisata</a></li>
+        <li><a href="#" class="hover:text-green-500 transition">Pemesanan Tour</a></li>
+        <li><a href="#" class="hover:text-green-500 transition">Akomodasi</a></li>
+        <li><a href="#" class="hover:text-green-500 transition">Transportasi</a></li>
+       </ul>
+      </div>
+      <div>
+       <h4 class="font-bold mb-4">Newsletter</h4>
+       <p class="text-sm mb-3 opacity-80">Dapatkan info terbaru tentang Papua</p><input type="email" placeholder="Email Anda" class="w-full px-3 py-2 rounded-lg bg-transparent border-2 border-current text-sm">
+      </div>
+     </div>
+     <div class="border-t border-current pt-6 text-center text-sm opacity-80">
+      <p id="footer-text">© 2024 Kekayaan Alam Papua. Dibuat dengan ❤️ untuk Indonesia</p>
+     </div>
+    </div>
+   </footer><!-- Chatbot -->
+   <div class="chatbot"><button class="chatbot-button" id="chatbot-toggle"> <i class="fas fa-comments"></i> </button>
+    <div class="chatbot-window" id="chatbot-window">
+     <div style="padding: 1rem; border-bottom: 1px solid rgba(255,255,255,0.1); font-weight: bold; display: flex; justify-content: space-between; align-items: center;"><span>💬 Panduan Wisata</span> <button id="chatbot-close" style="background: none; border: none; color: inherit; cursor: pointer; font-size: 1.2rem;">×</button>
+     </div>
+     <div style="flex: 1; padding: 1rem; overflow-y: auto;" id="chatbot-messages">
+      <div style="background: var(--accent-primary); color: white; padding: 0.75rem; border-radius: 12px; margin-bottom: 0.5rem; max-width: 80%;">
+       Halo! Ada yang bisa saya bantu tentang wisata Papua?
+      </div>
+     </div>
+     <div style="padding: 1rem; border-top: 1px solid rgba(255,255,255,0.1);">
+      <div style="display: flex; gap: 0.5rem;"><input type="text" id="chatbot-input" placeholder="Ketik pesan..." style="flex: 1; padding: 0.5rem; border-radius: 20px; border: 1px solid rgba(255,255,255,0.2); background: transparent; color: inherit;"> <button id="chatbot-send" style="padding: 0.5rem 1rem; border-radius: 20px; background: var(--accent-primary); color: white; border: none; cursor: pointer;"> Kirim </button>
+      </div>
+     </div>
+    </div>
+   </div><!-- Toast Notification -->
+   <div id="toast" class="toast"></div><!-- Testimonial Modal -->
+   <div id="testimonial-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 2000; align-items: center; justify-content: center;">
+    <div class="destination-card p-6 max-w-md w-full mx-4">
+     <div class="flex justify-between items-center mb-4">
+      <h3 class="text-xl font-bold">Tambah Testimoni</h3><button id="close-testimonial-modal" class="text-2xl">×</button>
+     </div>
+     <form id="testimonial-form" class="space-y-4">
+      <div><label for="testimonial-name" class="block mb-2 font-semibold">Nama</label> <input type="text" id="testimonial-name" required class="w-full px-4 py-2 rounded-lg bg-transparent border-2 border-current">
+      </div>
+      <div><label class="block mb-2 font-semibold">Rating</label>
+       <div class="flex space-x-2" id="rating-stars"><button type="button" class="star-btn text-2xl" data-rating="1">☆</button> <button type="button" class="star-btn text-2xl" data-rating="2">☆</button> <button type="button" class="star-btn text-2xl" data-rating="3">☆</button> <button type="button" class="star-btn text-2xl" data-rating="4">☆</button> <button type="button" class="star-btn text-2xl" data-rating="5">☆</button>
+       </div>
+      </div>
+      <div><label for="testimonial-message" class="block mb-2 font-semibold">Testimoni</label> <textarea id="testimonial-message" required rows="4" class="w-full px-4 py-2 rounded-lg bg-transparent border-2 border-current"></textarea>
+      </div><button type="submit" id="testimonial-submit-btn" class="w-full px-6 py-3 bg-green-500 text-white rounded-lg hover:bg-green-600 transition flex items-center justify-center"> <span id="testimonial-submit-text">Kirim Testimoni</span> </button>
+     </form>
+    </div>
+   </div>
+  </div>
+  <script>
+        const defaultConfig = {
+            site_title: "Kekayaan Alam Papua",
+            hero_title: "Jelajahi Keindahan Papua",
+            hero_subtitle: "Surga Tersembunyi di Timur Indonesia",
+            about_title: "Tentang Papua",
+            contact_title: "Hubungi Kami",
+            footer_text: "© 2024 Kekayaan Alam Papua. Dibuat dengan ❤️ untuk Indonesia",
+            background_color: "#0f172a",
+            surface_color: "#1e293b",
+            text_color: "#f1f5f9",
+            primary_action_color: "#10b981",
+            secondary_action_color: "#06b6d4",
+            font_family: "Segoe UI",
+            font_size: 16
+        };
+
+        let currentRecordCount = 0;
+        let allTestimonials = [];
+        let allContacts = [];
+        let currentTheme = 'dark';
+        let currentLang = 'id';
+        let selectedRating = 5;
+        let currentFilter = 'all';
+
+        const destinations = [
+            { id: 1, name: "Raja Ampat", category: "diving", icon: "🏝️", description: "Surga bawah laut dengan keanekaragaman hayati terkaya di dunia", price: "Rp 5.000.000" },
+            { id: 2, name: "Danau Sentani", category: "pantai", icon: "🏞️", description: "Danau indah dengan pulau-pulau kecil dan Festival budaya tahunan", price: "Rp 500.000" },
+            { id: 3, name: "Lembah Baliem", category: "budaya", icon: "⛰️", description: "Rumah suku Dani dengan budaya unik dan pemandangan pegunungan", price: "Rp 3.500.000" },
+            { id: 4, name: "Taman Nasional Lorentz", category: "gunung", icon: "🏔️", description: "Situs Warisan Dunia UNESCO dengan gletser tropis", price: "Rp 4.000.000" },
+            { id: 5, name: "Pulau Biak", category: "pantai", icon: "🌴", description: "Pantai eksotis dengan pasir putih dan air kristal", price: "Rp 2.500.000" },
+            { id: 6, name: "Asmat", category: "budaya", icon: "🎭", description: "Pusat seni ukir kayu tradisional Papua", price: "Rp 3.000.000" }
+        ];
+
+        const translations = {
+            id: {
+                home: "Beranda",
+                destinations: "Destinasi",
+                gallery: "Galeri",
+                testimonials: "Testimoni",
+                contact: "Kontak",
+                heroTitle: "Jelajahi Keindahan Papua",
+                heroSubtitle: "Surga Tersembunyi di Timur Indonesia",
+                searchPlaceholder: "Cari destinasi...",
+                startAdventure: "Mulai Petualangan"
+            },
+            en: {
+                home: "Home",
+                destinations: "Destinations",
+                gallery: "Gallery",
+                testimonials: "Testimonials",
+                contact: "Contact",
+                heroTitle: "Explore the Beauty of Papua",
+                heroSubtitle: "Hidden Paradise in Eastern Indonesia",
+                searchPlaceholder: "Search destinations...",
+                startAdventure: "Start Adventure"
+            }
+        };
+
+        function showToast(message, duration = 3000) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, duration);
+        }
+
+        function showLoading(buttonId, textId) {
+            const button = document.getElementById(buttonId);
+            const text = document.getElementById(textId);
+            button.disabled = true;
+            text.innerHTML = '<span class="loading-spinner"></span>';
+        }
+
+        function hideLoading(buttonId, textId, originalText) {
+            const button = document.getElementById(buttonId);
+            const text = document.getElementById(textId);
+            button.disabled = false;
+            text.textContent = originalText;
+        }
+
+        function renderDestinations() {
+            const grid = document.getElementById('destinations-grid');
+            const filteredDestinations = currentFilter === 'all' 
+                ? destinations 
+                : destinations.filter(d => d.category === currentFilter);
+            
+            const searchTerm = document.getElementById('search-input').value.toLowerCase();
+            const searchFiltered = searchTerm 
+                ? filteredDestinations.filter(d => d.name.toLowerCase().includes(searchTerm))
+                : filteredDestinations;
+
+            grid.innerHTML = searchFiltered.map(dest => `
+                <div class="destination-card scroll-animate">
+                    <div class="p-6">
+                        <div class="text-4xl mb-3">${dest.icon}</div>
+                        <h3 class="text-xl font-bold mb-2">${dest.name}</h3>
+                        <p class="text-sm opacity-80 mb-4">${dest.description}</p>
+                        <div class="flex justify-between items-center">
+                            <span class="font-bold" style="color: var(--accent-primary)">${dest.price}</span>
+                            <button class="px-4 py-2 rounded-lg" style="background: var(--accent-primary); color: white;">
+                                Booking
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+
+            observeScrollAnimations();
+        }
+
+        function renderTestimonials() {
+            const carousel = document.getElementById('testimonial-carousel');
+            if (allTestimonials.length === 0) {
+                carousel.innerHTML = '<p class="text-center opacity-60">Belum ada testimoni. Jadilah yang pertama!</p>';
+                return;
+            }
+
+            carousel.innerHTML = allTestimonials.map(testimonial => `
+                <div class="testimonial-card">
+                    <div class="flex items-center mb-3">
+                        <div class="w-12 h-12 rounded-full flex items-center justify-center text-2xl" style="background: var(--accent-primary); color: white;">
+                            ${testimonial.name.charAt(0).toUpperCase()}
+                        </div>
+                        <div class="ml-3">
+                            <div class="font-bold">${testimonial.name}</div>
+                            <div class="rating-stars text-sm">
+                                ${'★'.repeat(testimonial.rating)}${'☆'.repeat(5 - testimonial.rating)}
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-sm opacity-80">${testimonial.message}</p>
+                    <div class="text-xs opacity-60 mt-3">${new Date(testimonial.timestamp).toLocaleDateString('id-ID')}</div>
+                </div>
+            `).join('');
+        }
+
+        function animateCounter(element, target, duration = 2000) {
+            const start = 0;
+            const increment = target / (duration / 16);
+            let current = start;
+
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    current = target;
+                    clearInterval(timer);
+                }
+                element.textContent = Math.floor(current).toLocaleString();
+            }, 16);
+        }
+
+        function observeScrollAnimations() {
+            const elements = document.querySelectorAll('.scroll-animate');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            elements.forEach(el => observer.observe(el));
+        }
+
+        function startCounterAnimations() {
+            const counters = document.querySelectorAll('.stat-counter');
+            let animated = false;
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting && !animated) {
+                        animated = true;
+                        counters.forEach(counter => {
+                            const target = parseInt(counter.dataset.target);
+                            animateCounter(counter, target);
+                        });
+                        observer.disconnect();
+                    }
+                });
+            }, { threshold: 0.5 });
+
+            counters.forEach(counter => observer.observe(counter));
+        }
+
+        function toggleTheme() {
+            currentTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            document.body.setAttribute('data-theme', currentTheme);
+            const icon = document.getElementById('theme-icon');
+            icon.className = currentTheme === 'dark' ? 'fas fa-moon' : 'fas fa-sun';
+        }
+
+        function toggleLanguage() {
+            currentLang = currentLang === 'id' ? 'en' : 'id';
+            document.getElementById('current-lang').textContent = currentLang.toUpperCase();
+            
+            const t = translations[currentLang];
+            document.getElementById('hero-title').textContent = t.heroTitle;
+            document.getElementById('hero-subtitle').textContent = t.heroSubtitle;
+            document.getElementById('search-input').placeholder = t.searchPlaceholder;
+        }
+
+        const dataHandler = {
+            onDataChanged(data) {
+                currentRecordCount = data.length;
+                allTestimonials = data.filter(d => d.type === 'testimonial').sort((a, b) => 
+                    new Date(b.timestamp) - new Date(a.timestamp)
+                );
+                allContacts = data.filter(d => d.type === 'contact');
+                renderTestimonials();
+            }
+        };
+
+        async function init() {
+            if (window.dataSdk) {
+                const initResult = await window.dataSdk.init(dataHandler);
+                if (!initResult.isOk) {
+                    console.error("Failed to initialize data SDK");
+                }
+            }
+
+            if (window.elementSdk) {
+                await window.elementSdk.init({
+                    defaultConfig,
+                    onConfigChange: async (config) => {
+                        const siteTitle = config.site_title || defaultConfig.site_title;
+                        const heroTitle = config.hero_title || defaultConfig.hero_title;
+                        const heroSubtitle = config.hero_subtitle || defaultConfig.hero_subtitle;
+                        const aboutTitle = config.about_title || defaultConfig.about_title;
+                        const contactTitle = config.contact_title || defaultConfig.contact_title;
+                        const footerText = config.footer_text || defaultConfig.footer_text;
+                        const bgColor = config.background_color || defaultConfig.background_color;
+                        const surfaceColor = config.surface_color || defaultConfig.surface_color;
+                        const textColor = config.text_color || defaultConfig.text_color;
+                        const primaryColor = config.primary_action_color || defaultConfig.primary_action_color;
+                        const secondaryColor = config.secondary_action_color || defaultConfig.secondary_action_color;
+                        const fontFamily = config.font_family || defaultConfig.font_family;
+                        const fontSize = config.font_size || defaultConfig.font_size;
+
+                        document.getElementById('site-title').textContent = siteTitle;
+                        document.getElementById('hero-title').textContent = heroTitle;
+                        document.getElementById('hero-subtitle').textContent = heroSubtitle;
+                        document.getElementById('about-title').textContent = aboutTitle;
+                        document.getElementById('contact-title').textContent = contactTitle;
+                        document.getElementById('footer-text').textContent = footerText;
+
+                        document.documentElement.style.setProperty('--bg-primary', bgColor);
+                        document.documentElement.style.setProperty('--bg-secondary', surfaceColor);
+                        document.documentElement.style.setProperty('--text-primary', textColor);
+                        document.documentElement.style.setProperty('--accent-primary', primaryColor);
+                        document.documentElement.style.setProperty('--accent-secondary', secondaryColor);
+
+                        const fontStack = `${fontFamily}, Arial, sans-serif`;
+                        document.body.style.fontFamily = fontStack;
+                        document.getElementById('site-title').style.fontFamily = fontStack;
+                        document.getElementById('hero-title').style.fontFamily = fontStack;
+                        document.getElementById('hero-subtitle').style.fontFamily = fontStack;
+                        
+                        document.body.style.fontSize = `${fontSize}px`;
+                        document.getElementById('hero-title').style.fontSize = `${fontSize * 3}px`;
+                        document.getElementById('hero-subtitle').style.fontSize = `${fontSize * 1.25}px`;
+                        document.getElementById('about-title').style.fontSize = `${fontSize * 1.875}px`;
+                        document.getElementById('contact-title').style.fontSize = `${fontSize * 1.875}px`;
+                    },
+                    mapToCapabilities: (config) => ({
+                        recolorables: [
+                            {
+                                get: () => config.background_color || defaultConfig.background_color,
+                                set: (value) => {
+                                    config.background_color = value;
+                                    window.elementSdk.setConfig({ background_color: value });
+                                }
+                            },
+                            {
+                                get: () => config.surface_color || defaultConfig.surface_color,
+                                set: (value) => {
+                                    config.surface_color = value;
+                                    window.elementSdk.setConfig({ surface_color: value });
+                                }
+                            },
+                            {
+                                get: () => config.text_color || defaultConfig.text_color,
+                                set: (value) => {
+                                    config.text_color = value;
+                                    window.elementSdk.setConfig({ text_color: value });
+                                }
+                            },
+                            {
+                                get: () => config.primary_action_color || defaultConfig.primary_action_color,
+                                set: (value) => {
+                                    config.primary_action_color = value;
+                                    window.elementSdk.setConfig({ primary_action_color: value });
+                                }
+                            },
+                            {
+                                get: () => config.secondary_action_color || defaultConfig.secondary_action_color,
+                                set: (value) => {
+                                    config.secondary_action_color = value;
+                                    window.elementSdk.setConfig({ secondary_action_color: value });
+                                }
+                            }
+                        ],
+                        borderables: [],
+                        fontEditable: {
+                            get: () => config.font_family || defaultConfig.font_family,
+                            set: (value) => {
+                                config.font_family = value;
+                                window.elementSdk.setConfig({ font_family: value });
+                            }
+                        },
+                        fontSizeable: {
+                            get: () => config.font_size || defaultConfig.font_size,
+                            set: (value) => {
+                                config.font_size = value;
+                                window.elementSdk.setConfig({ font_size: value });
+                            }
+                        }
+                    }),
+                    mapToEditPanelValues: (config) => new Map([
+                        ["site_title", config.site_title || defaultConfig.site_title],
+                        ["hero_title", config.hero_title || defaultConfig.hero_title],
+                        ["hero_subtitle", config.hero_subtitle || defaultConfig.hero_subtitle],
+                        ["about_title", config.about_title || defaultConfig.about_title],
+                        ["contact_title", config.contact_title || defaultConfig.contact_title],
+                        ["footer_text", config.footer_text || defaultConfig.footer_text]
+                    ])
+                });
+            }
+
+            renderDestinations();
+            observeScrollAnimations();
+            startCounterAnimations();
+
+            document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
+            document.getElementById('lang-toggle').addEventListener('click', toggleLanguage);
+
+            document.getElementById('mobile-menu-btn').addEventListener('click', () => {
+                const menu = document.getElementById('mobile-menu');
+                menu.classList.toggle('hidden');
+            });
+
+            document.querySelectorAll('.filter-button').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    document.querySelectorAll('.filter-button').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    currentFilter = btn.dataset.category;
+                    renderDestinations();
+                });
+            });
+
+            document.getElementById('search-input').addEventListener('input', () => {
+                renderDestinations();
+            });
+
+            document.getElementById('chatbot-toggle').addEventListener('click', () => {
+                document.getElementById('chatbot-window').classList.add('active');
+            });
+
+            document.getElementById('chatbot-close').addEventListener('click', () => {
+                document.getElementById('chatbot-window').classList.remove('active');
+            });
+
+            document.getElementById('chatbot-send').addEventListener('click', () => {
+                const input = document.getElementById('chatbot-input');
+                const message = input.value.trim();
+                if (!message) return;
+
+                const messagesDiv = document.getElementById('chatbot-messages');
+                messagesDiv.innerHTML += `
+                    <div style="background: var(--bg-primary); padding: 0.75rem; border-radius: 12px; margin-bottom: 0.5rem; max-width: 80%; margin-left: auto; text-align: right;">
+                        ${message}
+                    </div>
+                `;
+
+                setTimeout(() => {
+                    messagesDiv.innerHTML += `
+                        <div style="background: var(--accent-primary); color: white; padding: 0.75rem; border-radius: 12px; margin-bottom: 0.5rem; max-width: 80%;">
+                            Terima kasih! Kami sedang memproses pertanyaan Anda tentang "${message}".
+                        </div>
+                    `;
+                    messagesDiv.scrollTop = messagesDiv.scrollHeight;
+                }, 1000);
+
+                input.value = '';
+                messagesDiv.scrollTop = messagesDiv.scrollHeight;
+            });
+
+            document.getElementById('contact-form').addEventListener('submit', async (e) => {
+                e.preventDefault();
+
+                if (currentRecordCount >= 999) {
+                    showToast('Batas maksimum 999 data telah tercapai. Silakan hubungi administrator.');
+                    return;
+                }
+
+                showLoading('contact-submit-btn', 'contact-submit-text');
+
+                const formData = {
+                    id: Date.now().toString(),
+                    name: document.getElementById('contact-name').value,
+                    email: document.getElementById('contact-email').value,
+                    message: document.getElementById('contact-message').value,
+                    timestamp: new Date().toISOString(),
+                    type: 'contact'
+                };
+
+                if (window.dataSdk) {
+                    const result = await window.dataSdk.create(formData);
+                    if (result.isOk) {
+                        showToast('Pesan berhasil dikirim! Kami akan segera menghubungi Anda.');
+                        document.getElementById('contact-form').reset();
+                    } else {
+                        showToast('Gagal mengirim pesan. Silakan coba lagi.');
+                    }
+                }
+
+                hideLoading('contact-submit-btn', 'contact-submit-text', 'Kirim Pesan');
+            });
+
+            document.getElementById('add-testimonial-btn').addEventListener('click', () => {
+                document.getElementById('testimonial-modal').style.display = 'flex';
+            });
+
+            document.getElementById('close-testimonial-modal').addEventListener('click', () => {
+                document.getElementById('testimonial-modal').style.display = 'none';
+            });
+
+            document.querySelectorAll('.star-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    selectedRating = parseInt(btn.dataset.rating);
+                    document.querySelectorAll('.star-btn').forEach((b, i) => {
+                        b.textContent = i < selectedRating ? '★' : '☆';
+                    });
+                });
+            });
+
+            document.getElementById('testimonial-form').addEventListener('submit', async (e) => {
+                e.preventDefault();
+
+                if (currentRecordCount >= 999) {
+                    showToast('Batas maksimum 999 data telah tercapai. Silakan hubungi administrator.');
+                    return;
+                }
+
+                showLoading('testimonial-submit-btn', 'testimonial-submit-text');
+
+                const testimonialData = {
+                    id: Date.now().toString(),
+                    name: document.getElementById('testimonial-name').value,
+                    rating: selectedRating,
+                    message: document.getElementById('testimonial-message').value,
+                    timestamp: new Date().toISOString(),
+                    type: 'testimonial'
+                };
+
+                if (window.dataSdk) {
+                    const result = await window.dataSdk.create(testimonialData);
+                    if (result.isOk) {
+                        showToast('Testimoni berhasil ditambahkan! Terima kasih atas feedback Anda.');
+                        document.getElementById('testimonial-form').reset();
+                        document.getElementById('testimonial-modal').style.display = 'none';
+                        selectedRating = 5;
+                        document.querySelectorAll('.star-btn').forEach((b, i) => {
+                            b.textContent = i < 5 ? '★' : '☆';
+                        });
+                    } else {
+                        showToast('Gagal menambahkan testimoni. Silakan coba lagi.');
+                    }
+                }
+
+                hideLoading('testimonial-submit-btn', 'testimonial-submit-text', 'Kirim Testimoni');
+            });
+
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({ behavior: 'smooth' });
+                        const mobileMenu = document.getElementById('mobile-menu');
+                        if (!mobileMenu.classList.contains('hidden')) {
+                            mobileMenu.classList.add('hidden');
+                        }
+                    }
+                });
+            });
+        }
+
+        init();
+    </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9a87c2246026244a',t:'MTc2NDgxNDEzMi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
